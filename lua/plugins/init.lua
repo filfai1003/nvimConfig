@@ -19,6 +19,7 @@ local specs = {
   require("plugins.telescope"),
   require("plugins.nvim-cmp"),
   require("plugins.copilot"),
+  require("plugins.lspconfig"),
 }
 
 require("lazy").setup(specs, {
