@@ -15,6 +15,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local specs = {
+  require("plugins.tokyonight"),
   require("plugins.which-key"),
   require("plugins.telescope"),
   require("plugins.nvim-cmp"),
