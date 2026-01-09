@@ -51,3 +51,25 @@ end, opts)
 -- Undotree
 -- ============================================================================
 keymap("n", "<leader>u", ":UndotreeToggle<CR>", opts)
+
+-- ============================================================================
+-- Debugging (nvim-dap)
+-- ============================================================================
+keymap("n", "<leader>db", function() require("dap").toggle_breakpoint() end, opts)
+keymap("n", "<leader>dB", function()
+	require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+end, opts)
+keymap("n", "<leader>dc", function() require("dap").continue() end, opts)
+keymap("n", "<leader>dn", function() require("dap").step_over() end, opts)
+keymap("n", "<leader>di", function() require("dap").step_into() end, opts)
+keymap("n", "<leader>do", function() require("dap").step_out() end, opts)
+keymap("n", "<leader>dr", function() require("dap").repl.open() end, opts)
+keymap("n", "<leader>du", function() require("dapui").toggle() end, opts)
+
+-- ============================================================================
+-- CMake Tools
+-- ============================================================================
+keymap("n", "<leader>cc", ":CMakeConfigure<CR>", opts)
+keymap("n", "<leader>cb", ":CMakeBuild<CR>", opts)
+keymap("n", "<leader>cr", ":CMakeRun<CR>", opts)
+keymap("n", "<leader>ct", ":CMakeSelectTarget<CR>", opts)

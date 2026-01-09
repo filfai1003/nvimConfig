@@ -15,13 +15,18 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local specs = {
+  require("plugins.mason"),
   require("plugins.tokyonight"),
   require("plugins.which-key"),
   require("plugins.telescope"),
   require("plugins.nvim-cmp"),
   require("plugins.copilot"),
+  require("plugins.copilot-chat"),
   require("plugins.lspconfig"),
   require("plugins.undotree"),
+  require("plugins.dap"),
+  require("plugins.dap-ui"),
+  require("plugins.cmake-tools"),
   require("plugins.lsp-lines"),
 }
 
