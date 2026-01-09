@@ -48,6 +48,10 @@ return {
       { "<leader>e", ":Ex<CR>", desc = "Netrw Explorer" },
       { "<leader>w", ":w<CR>", desc = "Save File" },
       { "<leader>q", ":q<CR>", desc = "Quit" },
+      { "<leader>g", group = "go to" },
+      { "<leader>gd", function() require("config.goto").definition() end, desc = "Go to Definition" },
+      { "<leader>gr", function() require("config.goto").references("read") end, desc = "Go to Read (usages)" },
+      { "<leader>gw", function() require("config.goto").references("write") end, desc = "Go to Write (writes)" },
     })
   end,
 }

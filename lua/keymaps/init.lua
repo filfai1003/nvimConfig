@@ -32,3 +32,18 @@ keymap("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
 keymap("n", "<leader>e", ":Ex<CR>", opts)
 keymap("n", "<leader>w", ":w<CR>", opts)
 keymap("n", "<leader>q", ":q<CR>", opts)
+
+-- ============================================================================
+-- LSP Go-To Shortcuts
+-- ============================================================================
+keymap("n", "<leader>gd", function()
+	require("config.goto").definition()
+end, opts)
+
+keymap("n", "<leader>gr", function()
+	require("config.goto").references("read")
+end, opts)
+
+keymap("n", "<leader>gw", function()
+	require("config.goto").references("write")
+end, opts)
