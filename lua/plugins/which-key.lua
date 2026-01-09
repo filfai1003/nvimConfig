@@ -49,6 +49,8 @@ return {
       { "<leader>w", ":w<CR>", desc = "Save File" },
       { "<leader>q", ":q<CR>", desc = "Quit" },
       { "<leader>u", ":UndotreeToggle<CR>", desc = "Undo Tree" },
+      { "<leader>l", group = "lsp" },
+      { "<leader>ld", function() require("lsp_lines").toggle() end, desc = "Toggle Diagnostics" },
       { "<leader>g", group = "go to" },
       { "<leader>gd", function() require("config.goto").definition() end, desc = "Go to Definition" },
       { "<leader>gr", function() require("config.goto").references("read") end, desc = "Go to Read (usages)" },

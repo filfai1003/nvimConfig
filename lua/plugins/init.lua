@@ -22,6 +22,7 @@ local specs = {
   require("plugins.copilot"),
   require("plugins.lspconfig"),
   require("plugins.undotree"),
+  require("plugins.lsp-lines"),
 }
 
 require("lazy").setup(specs, {
