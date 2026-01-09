@@ -21,6 +21,7 @@ local specs = {
   require("plugins.nvim-cmp"),
   require("plugins.copilot"),
   require("plugins.lspconfig"),
+  require("plugins.undotree"),
 }
 
 require("lazy").setup(specs, {

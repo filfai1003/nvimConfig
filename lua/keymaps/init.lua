@@ -47,3 +47,7 @@ end, opts)
 keymap("n", "<leader>gw", function()
 	require("config.goto").references("write")
 end, opts)
+-- ============================================================================
+-- Undotree
+-- ============================================================================
+keymap("n", "<leader>u", ":UndotreeToggle<CR>", opts)
