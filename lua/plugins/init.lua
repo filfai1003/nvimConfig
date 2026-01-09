@@ -14,11 +14,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Collect plugin specs explicitly to avoid importing this init.lua as a spec
 local specs = {
   require("plugins.which-key"),
   require("plugins.telescope"),
   require("plugins.nvim-cmp"),
+  require("plugins.copilot"),
 }
 
 require("lazy").setup(specs, {

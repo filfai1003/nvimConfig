@@ -1,4 +1,4 @@
--- nvim-cmp: minimal autocompletion with Tab confirm
+-- nvim-cmp: no popup, keep snippets; Tab is free for Copilot
 -- ==========================================================================
 
 return {
@@ -18,6 +18,32 @@ return {
     cmp.setup({
       snippet = {
         expand = function(args)
+
+    -- Disable automatic popup; we use Copilot for inline AI and LuaSnip for snippets
+    cmp.setup({
+      completion = { autocomplete = false },
+      window = {
+        completion = cmp.config.disable,
+        documentation = cmp.config.disable,
+      },
+      snippet = {
+        expand = function(args)
+          luasnip.lsp_expand(args.body)
+        end,
+      },
+      mapping = cmp.mapping.preset.insert({
+        ["<C-e>"] = cmp.mapping.abort(),
+      }),
+      sources = {},
+    })
+
+    -- Enter: espande o salta snippet; altrimenti newline
+    vim.keymap.set({ "i", "s" }, "<CR>", function()
+      if luasnip.expand_or_jumpable() then
+        return "<Plug>luasnip-expand-or-jump"
+      end
+      return "<CR>"
+    end, { expr = true, silent = true, desc = "LuaSnip expand/jump or newline" })
           luasnip.lsp_expand(args.body)
         end,
       },
