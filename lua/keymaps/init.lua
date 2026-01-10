@@ -59,3 +59,51 @@ keymap("n", "<leader>cc", ":CMakeConfigure<CR>", opts)
 keymap("n", "<leader>cb", ":CMakeBuild<CR>", opts)
 keymap("n", "<leader>cr", ":CMakeRun<CR>", opts)
 keymap("n", "<leader>ct", ":CMakeSelectTarget<CR>", opts)
+
+-- ============================================================================
+-- Java/Maven
+-- ============================================================================
+-- Helper to run terminal commands at bottom, replacing previous
+local function run_terminal(cmd)
+  -- Close existing terminal buffers
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[buf].buftype == "terminal" then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+  -- Open new terminal at bottom
+  vim.cmd("botright split | terminal " .. cmd)
+end
+
+keymap("n", "<leader>ji", function()
+  local groupId = vim.fn.input("groupId (e.g., com.example.app): ")
+  if groupId ~= "" then
+    local artifactId = vim.fn.input("artifactId (e.g., myapp): ")
+    if artifactId ~= "" then
+      run_terminal("mvn archetype:generate -DgroupId=" .. groupId .. " -DartifactId=" .. artifactId .. " -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false")
+    end
+  end
+end, opts)
+
+keymap("n", "<leader>jc", function()
+  run_terminal("mvn compile")
+end, opts)
+
+keymap("n", "<leader>jr", function()
+  local mainClass = vim.fn.input("mainClass (e.g., com.example.app.App): ")
+  if mainClass ~= "" then
+    run_terminal("mvn exec:java -Dexec.mainClass=" .. mainClass)
+  end
+end, opts)
+
+keymap("n", "<leader>jt", function()
+  run_terminal("mvn test")
+end, opts)
+
+keymap("n", "<leader>jp", function()
+  run_terminal("mvn package")
+end, opts)
+
+keymap("n", "<leader>jx", function()
+  run_terminal("mvn clean")
+end, opts)
