@@ -24,8 +24,6 @@ local specs = {
   require("plugins.copilot-chat"),
   require("plugins.lspconfig"),
   require("plugins.undotree"),
-  require("plugins.dap"),
-  require("plugins.dap-ui"),
   require("plugins.cmake-tools"),
   require("plugins.lsp-lines"),
 }

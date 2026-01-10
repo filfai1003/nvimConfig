@@ -4,25 +4,18 @@
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
+    branch = "main",
     dependencies = {
       { "zbirenbaum/copilot.lua" },
       { "nvim-lua/plenary.nvim" },
     },
+    build = "make tiktoken",
     opts = {
       debug = false,
       show_help = "yes",
       proxy = nil,
       disable_extra_info = "no",
       language = "Italian",
-      prompts = {
-        Explain = "Spiega il seguente codice.",
-        Review = "Revisa il seguente codice e fornisci suggerimenti di miglioramento.",
-        Fix = "Correggi i bug nel seguente codice.",
-        Optimize = "Ottimizza il seguente codice.",
-        Docs = "Scrivi la documentazione per il seguente codice.",
-        Tests = "Scrivi i test per il seguente codice.",
-      },
       window = {
         layout = "float",
         relative = "editor",
@@ -35,36 +28,25 @@ return {
         title_pos = "center",
         zindex = 1000,
       },
-      selection = function(source)
-        local select = require("CopilotChat.select")
-        return select.visual(source) or select.line(source)
-      end,
     },
     config = function(_, opts)
-      local chat = require("CopilotChat")
-      local select = require("CopilotChat.select")
+      require("CopilotChat").setup(opts)
       
-      chat.setup(opts)
+      local chat = require("CopilotChat")
 
-      -- Keybinding principale: leader + a per Ask senza contesto (modal popup)
+      -- Keybinding principale: leader + a per aprire Copilot Chat
       vim.keymap.set("n", "<leader>a", function()
-        local input = vim.fn.input("Ask Copilot: ")
-        if input ~= "" then
-          chat.ask(input, { selection = select.none })
-        end
-      end, { noremap = true, silent = true, desc = "Copilot Chat: Ask (popup)" })
+        chat.open()
+      end, { noremap = true, silent = true, desc = "Copilot Chat" })
 
-      -- Keybinding rapido per domande comuni (optional)
-      vim.keymap.set("n", "<leader>ce", "<cmd>CopilotChatExplain<cr>", 
-        { noremap = true, silent = true, desc = "Copilot Chat: Explain" })
-      vim.keymap.set("n", "<leader>cr", "<cmd>CopilotChatReview<cr>", 
-        { noremap = true, silent = true, desc = "Copilot Chat: Review" })
-      vim.keymap.set("n", "<leader>cf", "<cmd>CopilotChatFix<cr>", 
-        { noremap = true, silent = true, desc = "Copilot Chat: Fix" })
-
-      -- Selezionare il modello (optional)
-      vim.keymap.set("n", "<leader>cm", "<cmd>CopilotChatModels<cr>", 
-        { noremap = true, silent = true, desc = "Copilot Chat: Select Model" })
+      -- Keybinding per inviare il messaggio: Ctrl+S
+      vim.keymap.set("n", "<C-s>", function()
+        chat.submit()
+      end, { noremap = true, silent = true, desc = "Submit Copilot Chat" })
+      
+      vim.keymap.set("i", "<C-s>", function()
+        chat.submit()
+      end, { noremap = true, silent = true, desc = "Submit Copilot Chat" })
     end,
   },
   {
